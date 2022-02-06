@@ -1,0 +1,44 @@
+
+<form id="formElem">
+article:<br>
+<textarea name="article" rows=10 cols=30></textarea><br>
+<input type="submit">
+</form>
+<div id="output"></div>
+
+<script>
+  read = async () => {
+    let message = {message: 'read_article'};
+    let response = await fetch('https://m1o8k1oaeh.execute-api.us-east-1.amazonaws.com/alpha/', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+    },
+        body: JSON.stringify(message)
+        });
+        let result = await response.json();
+        //console.log(result);
+        formElem.article.innerHTML=result.message;
+  };
+  //console.log(read);
+  read();
+  formElem.onsubmit = async (e) => {
+        e.preventDefault();
+    formData=new FormData(formElem)
+    let message = {
+    message: 'article',
+    article: formData.get('article')
+    };
+        let response = await fetch('https://m1o8k1oaeh.execute-api.us-east-1.amazonaws.com/alpha/', {
+        method: 'POST',
+    headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+    },
+        body: JSON.stringify(message)
+        });
+        let result = await response.json();
+        output.innerHTML=result.message;
+  };
+</script>
+    
+
