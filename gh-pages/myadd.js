@@ -1,0 +1,1 @@
+export function myadd(a){return a+1;}
